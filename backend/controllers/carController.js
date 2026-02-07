@@ -1,7 +1,6 @@
 const Car = require('../models/Car');
 
-// @desc    Get all cars with optional filters (category, availability)
-// @route   GET /api/cars
+// @desc    Get all cars with optional filters (category, status)
 exports.getAllCars = async (req, res) => {
   try {
     const { category, status } = req.query;
@@ -18,31 +17,28 @@ exports.getAllCars = async (req, res) => {
 };
 
 // @desc    Get a single car's details
-// @route   GET /api/cars/:id
 exports.getCarById = async (req, res) => {
   try {
     const car = await Car.findById(req.params.id);
     if (!car) return res.status(404).json({ message: "Car not found" });
     res.status(200).json(car);
   } catch (error) {
-    res.status(500).json({ message: "Invalid ID format", error: error.message });
+    res.status(500).json({ message: "Error fetching car", error: error.message });
   }
 };
 
 // @desc    Add a new car (Admin Only)
-// @route   POST /api/cars/add
 exports.addCar = async (req, res) => {
   try {
     const newCar = new Car(req.body);
     const savedCar = await newCar.save();
-    res.status(201).json({ message: "Car added to fleet successfully!", savedCar });
+    res.status(201).json({ message: "Car added successfully!", savedCar });
   } catch (error) {
     res.status(400).json({ message: "Failed to add car", error: error.message });
   }
 };
 
 // @desc    Update car details (Admin Only)
-// @route   PUT /api/cars/:id
 exports.updateCar = async (req, res) => {
   try {
     const updatedCar = await Car.findByIdAndUpdate(
@@ -57,7 +53,6 @@ exports.updateCar = async (req, res) => {
 };
 
 // @desc    Delete a car (Admin Only)
-// @route   DELETE /api/cars/:id
 exports.deleteCar = async (req, res) => {
   try {
     await Car.findByIdAndDelete(req.params.id);

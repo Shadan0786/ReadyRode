@@ -52,12 +52,14 @@
 
         /* Admin Button Styling */
         #adminBtn {
-            background-color: #f59e0b; /* Amber/Gold */
+            background-color: #f59e0b;
+            /* Amber/Gold */
             color: #000;
             padding: 6px 12px;
             border-radius: 6px;
             font-weight: bold;
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
         }
 
         #adminBtn:hover {
@@ -185,7 +187,10 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            header h1 { font-size: 32px; }
+
+            header h1 {
+                font-size: 32px;
+            }
         }
     </style>
 </head>
@@ -199,7 +204,7 @@
                 <a href="login.html">Login</a> / <a href="signup.html">Register</a>
             </span>
             <a href="admin.html" id="adminBtn">Admin Panel</a>
-            
+
             <button id="logoutBtn" style="display:none;">Logout</button>
         </div>
     </nav>
@@ -221,19 +226,21 @@
         const token = localStorage.getItem('token');
         const userName = localStorage.getItem('userName');
         const role = localStorage.getItem('role'); // Check for 'admin' or 'user'
-        
+
         const userInfo = document.getElementById('userInfo');
         const logoutBtn = document.getElementById('logoutBtn');
         const adminBtn = document.getElementById('adminBtn');
 
         // If user is logged in
         if (token) {
-            userInfo.innerHTML = `Hi, <strong>${userName || 'Driver'}</strong> | <a href="profile.html">My Bookings</a>`;
-            logoutBtn.style.display = 'inline-block';
+            document.getElementById('userInfo').innerHTML = `
+        Hi, <strong>${userName}</strong> | <a href="profile.html">My Bookings</a>
+    `;
+            document.getElementById('logoutBtn').style.display = 'inline-block';
 
-            // SHOW ADMIN BUTTON ONLY IF ROLE IS ADMIN
+            // Only show admin button if role matches
             if (role === 'admin') {
-                adminBtn.style.display = 'inline-block';
+                document.getElementById('adminBtn').style.display = 'inline-block';
             }
         }
 
@@ -261,7 +268,7 @@
                 cars.forEach(car => {
                     // Use a placeholder if image is missing
                     const carImg = car.image || 'https://via.placeholder.com/400x250?text=No+Image+Available';
-                    
+
                     carContainer.innerHTML += `
                         <div class="car-card">
                             <img src="${carImg}" alt="${car.make}" class="car-image">

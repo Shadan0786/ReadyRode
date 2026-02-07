@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <title>ReadyRoad Admin - Control Tower</title>
     <style>
-        /* ===== RESET & BASE ===== */
+        /* CSS remains the same as your original provided code */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, sans-serif;
+            font-family: "Segoe UI", sans-serif;
         }
 
         body {
@@ -19,7 +19,6 @@
             padding: 20px;
         }
 
-        /* ===== NAVBAR ===== */
         nav {
             display: flex;
             align-items: center;
@@ -36,10 +35,6 @@
             margin-left: 15px;
         }
 
-        nav a:hover {
-            color: #fff;
-        }
-
         nav button {
             background-color: #ef4444;
             color: #fff;
@@ -49,20 +44,6 @@
             cursor: pointer;
         }
 
-        nav button:hover {
-            background-color: #dc2626;
-        }
-
-        /* ===== HEADINGS ===== */
-        h1 {
-            margin: 20px 0;
-        }
-
-        h3 {
-            margin-bottom: 10px;
-        }
-
-        /* ===== SECTIONS ===== */
         section {
             background-color: #ffffff;
             padding: 20px;
@@ -71,7 +52,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        /* ===== FORM ===== */
         form input,
         form select {
             width: 100%;
@@ -90,19 +70,10 @@
             cursor: pointer;
         }
 
-        form button:hover {
-            background-color: #1e40af;
-        }
-
-        /* ===== TABLES ===== */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-        }
-
-        thead {
-            background-color: #e5e7eb;
         }
 
         th,
@@ -112,11 +83,6 @@
             border-bottom: 1px solid #ddd;
         }
 
-        tr:hover {
-            background-color: #f9fafb;
-        }
-
-        /* ===== ACTION BUTTONS ===== */
         td button {
             background-color: #ef4444;
             color: #fff;
@@ -125,67 +91,41 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
-        td button:hover {
-            background-color: #dc2626;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            table,
-            thead,
-            tbody,
-            th,
-            td,
-            tr {
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 
 <body>
     <nav>
         <strong>ReadyRoad ADMIN</strong>
-        <a href="index.html">Home </a>
-        <button onclick="logout()">Logout</button>
+        <div>
+            <a href="index.html">Home</a>
+            <button onclick="logout()">Logout</button>
+        </div>
     </nav>
-    <hr>
 
     <h1>Admin Dashboard</h1>
 
-    <section style="background-color: #f9f9f9; padding: 15px; border: 1px solid #ccc;">
+    <section>
         <h3>+ Add New Vehicle to Fleet</h3>
         <form id="addCarForm">
-            <input type="text" name="make" placeholder="Make (e.g., Tesla)" required><br>
-            <input type="text" name="model" placeholder="Model (e.g., Model 3)" required><br>
-            <input type="number" name="year" placeholder="Year" required><br>
-            <input type="number" name="pricePerDay" placeholder="Price Per Day ($)" required><br>
-
-            <input type="text" name="licensePlate" placeholder="License Plate (e.g., ABC-1234)" required><br>
-            <input type="text" name="image" placeholder="Car Image URL (e.g. https://...)" required><br>
-
+            <input type="text" name="make" placeholder="Make (e.g., Tesla)" required>
+            <input type="text" name="model" placeholder="Model (e.g., Model 3)" required>
+            <input type="number" name="year" placeholder="Year" required>
+            <input type="number" name="pricePerDay" placeholder="Price Per Day ($)" required>
+            <input type="text" name="licensePlate" placeholder="License Plate" required>
+            <input type="text" name="image" placeholder="Car Image URL" required>
             <select name="category">
                 <option value="Economy">Economy</option>
                 <option value="Luxury">Luxury</option>
                 <option value="SUV">SUV</option>
-            </select><br>
-
+            </select>
             <button type="submit">Add Car to Fleet</button>
         </form>
     </section>
 
-    <hr>
-
     <section>
         <h3>Current Fleet</h3>
-        <table border="1" width="100%">
+        <table>
             <thead>
                 <tr>
                     <th>Car</th>
@@ -198,14 +138,12 @@
         </table>
     </section>
 
-    <hr>
-
     <section>
         <h3>All Customer Bookings</h3>
-        <table border="1" width="100%">
+        <table>
             <thead>
                 <tr>
-                    <th>User ID</th>
+                    <th>User</th>
                     <th>Car</th>
                     <th>Dates</th>
                     <th>Revenue</th>
@@ -216,27 +154,19 @@
     </section>
 
     <script>
-
-        (function checkAdmin() {
-            const token = localStorage.getItem('token');
-            const role = localStorage.getItem('role'); // We need to save this during login!
-
-            if (!token || role !== 'admin') {
-                alert("Access Denied: Admins Only!");
-                window.location.href = 'index.html';
-            }
-        })();
         const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
 
-        // Security Check: Redirect if no token
-        if (!token) window.location.href = 'login.html';
+        // Combined Security Check
+        if (!token || role !== 'admin') {
+            alert("Access Denied: Admins Only!");
+            window.location.href = 'login.html';
+        }
 
-        // 1. Fetch Fleet
         async function loadFleet() {
             const res = await fetch('http://localhost:5000/api/cars');
             const cars = await res.json();
-            const table = document.getElementById('fleetTable');
-            table.innerHTML = cars.map(car => `
+            document.getElementById('fleetTable').innerHTML = cars.map(car => `
                 <tr>
                     <td>${car.make} ${car.model}</td>
                     <td>$${car.pricePerDay}</td>
@@ -246,47 +176,62 @@
             `).join('');
         }
 
-        // 2. Fetch All Bookings
         async function loadAllBookings() {
-            const res = await fetch('http://localhost:5000/api/bookings/admin/all', {
-                headers: { 'x-auth-token': token }
-            });
-            const bookings = await res.json();
-            const table = document.getElementById('allBookingsTable');
-            table.innerHTML = bookings.map(b => `
+            try {
+                const res = await fetch('http://localhost:5000/api/bookings/admin/all', {
+                    headers: { 'x-auth-token': token }
+                });
+
+                const bookings = await res.json();
+                const tableBody = document.getElementById('allBookingsTable');
+
+                if (!bookings || bookings.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No bookings found.</td></tr>';
+                    return;
+                }
+
+                tableBody.innerHTML = bookings.map(b => {
+                    // Safety Check: Agar user ya car database se delete ho chuka ho
+                    const userName = b.user ? `${b.user.firstName} ${b.user.lastName}` : '<span style="color:red">Deleted User</span>';
+                    const carName = b.car ? `${b.car.make} ${b.car.model}` : '<span style="color:red">Car Removed</span>';
+                    const revenue = b.totalPrice ? `$${b.totalPrice}` : '$0';
+
+                    const startDate = b.startDate ? new Date(b.startDate).toLocaleDateString() : 'N/A';
+                    const endDate = b.endDate ? new Date(b.endDate).toLocaleDateString() : 'N/A';
+
+                    return `
                 <tr>
-                    <td>${b.user.firstName} ${b.user.lastName}</td>
-                    <td>${b.car.make} ${b.car.model}</td>
-                    <td>${new Date(b.startDate).toLocaleDateString()} - ${new Date(b.endDate).toLocaleDateString()}</td>
-                    <td>$${b.totalPrice}</td>
+                    <td>${userName}</td>
+                    <td>${carName}</td>
+                    <td>${startDate} - ${endDate}</td>
+                    <td>${revenue}</td>
                 </tr>
-            `).join('');
+            `;
+                }).join('');
+            } catch (err) {
+                console.error("Error loading bookings:", err);
+                document.getElementById('allBookingsTable').innerHTML = '<tr><td colspan="4" style="color:red; text-align:center;">Failed to load bookings. Check Console.</td></tr>';
+            }
         }
 
-        // 3. Add Car Logic
         document.getElementById('addCarForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-
+            const data = Object.fromEntries(new FormData(e.target));
             const res = await fetch('http://localhost:5000/api/cars/add', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-auth-token': token
-                },
+                headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                 body: JSON.stringify(data)
             });
 
             if (res.ok) {
                 alert("Car added!");
+                e.target.reset();
                 loadFleet();
             }
         });
 
-        // 4. Delete Car Logic
         async function deleteCar(id) {
-            if (confirm("Are you sure you want to remove this car?")) {
+            if (confirm("Are you sure?")) {
                 await fetch(`http://localhost:5000/api/cars/${id}`, {
                     method: 'DELETE',
                     headers: { 'x-auth-token': token }
@@ -300,7 +245,7 @@
             window.location.href = 'login.html';
         }
 
-        // Run on load
+        // Initialization
         loadFleet();
         loadAllBookings();
     </script>

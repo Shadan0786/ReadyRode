@@ -1,207 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>ReadyRoad - My Profile</title>
+    <title>My Profile | ReadyRoad</title>
     <style>
-        /* ===== RESET ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, sans-serif;
-        }
-
-        /* ===== BODY ===== */
-        body {
-            background-color: #f4f6f8;
-            color: #1f2937;
-            padding: 20px;
-        }
-
-        /* ===== NAVBAR ===== */
-        nav {
-            background-color: #111827;
-            padding: 12px 20px;
-            border-radius: 8px;
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
-
-        nav a {
-            color: #9ca3af;
-            text-decoration: none;
-            margin-right: 10px;
-        }
-
-        nav a:hover {
-            color: #ffffff;
-        }
-
-        /* ===== HEADINGS ===== */
-        h2 {
-            margin-bottom: 10px;
-        }
-
-        /* ===== USER CARD ===== */
-        #userFields {
-            background-color: #ffffff;
-            padding: 18px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        #userFields p {
-            margin-bottom: 8px;
-            font-size: 15px;
-        }
-
-        /* ===== BOOKINGS TABLE ===== */
-        #bookingTable {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-        }
-
-        #bookingTable thead {
-            background-color: #e5e7eb;
-        }
-
-        #bookingTable th,
-        #bookingTable td {
-            padding: 14px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        #bookingTable tbody tr {
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        #bookingTable tbody tr:hover {
-            background-color: #f9fafb;
-        }
-
-        /* ===== STATUS BADGES ===== */
-        td:last-child {
-            font-weight: bold;
-        }
-
-        td:last-child:contains("Confirmed") {
-            color: #16a34a;
-        }
-
-        /* ===== EMPTY STATE ===== */
-        #bookingList td[colspan] {
-            text-align: center;
-            padding: 20px;
-            color: #6b7280;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            #bookingTable th,
-            #bookingTable td {
-                padding: 10px;
-                font-size: 13px;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+        body { background-color: #f4f6f8; color: #1f2937; padding: 20px; }
+        nav { background: #111827; padding: 15px 20px; border-radius: 8px; color: white; margin-bottom: 25px; display: flex; justify-content: space-between; }
+        nav a { color: #9ca3af; text-decoration: none; }
+        .container { max-width: 900px; margin: auto; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #e5e7eb; }
+        .status-badge { font-weight: bold; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
     </style>
 </head>
-
 <body>
-    <nav>
-        <a href="index.html">← Back </a> | <strong>ReadyRoad Profile</strong>
-    </nav>
-    <hr>
 
-    <h2>User Details</h2>
-    <div id="userFields">
-        <p>Loading your info...</p>
+    <div class="container">
+        <nav>
+            <strong>ReadyRoad Profile</strong>
+            <a href="index.html">Home</a>
+        </nav>
+
+        <h2>User Details</h2>
+        <div class="card" id="userFields">
+            <p>Loading profile...</p>
+        </div>
+
+        <h2>My Bookings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Car</th>
+                    <th>Dates</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="bookingList">
+                <tr><td colspan="4">Loading bookings...</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <hr>
-
-    <h2>My Bookings</h2>
-    <table border="1" id="bookingTable">
-        <thead>
-            <tr>
-                <th>Car</th>
-                <th>Dates</th>
-                <th>Total Price</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="bookingList">
-        </tbody>
-    </table>
-
     <script>
-        // 1. Check if user is logged in
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
+        const userName = localStorage.getItem('userName');
 
         if (!token) {
-            alert("Unauthorized! Please login.");
+            alert("Please login to view profile");
             window.location.href = 'login.html';
         }
 
-        // 2. Load User Info (Optional: depends on if you have a "Get User" route)
+        // Display basic user info from storage
         document.getElementById('userFields').innerHTML = `
+            <p><strong>Name:</strong> ${userName || 'User'}</p>
             <p><strong>User ID:</strong> ${userId}</p>
-            <p><strong>Name:</strong> ${localStorage.getItem('userName')}</p>
         `;
 
-        // 3. Fetch Bookings for this specific user
         async function getMyBookings() {
             try {
                 const response = await fetch(`http://localhost:5000/api/bookings/user/${userId}`, {
-                    method: 'GET',
-                    headers: {
-                        'x-auth-token': token // Crucial for protected routes
-                    }
+                    headers: { 'x-auth-token': token }
                 });
 
                 const bookings = await response.json();
                 const list = document.getElementById('bookingList');
                 list.innerHTML = '';
 
-                if (bookings.length === 0) {
-                    list.innerHTML = '<tr><td colspan="4">No bookings found. Time to go for a drive!</td></tr>';
+                if (!bookings || bookings.length === 0) {
+                    list.innerHTML = '<tr><td colspan="4" style="text-align:center;">No bookings found.</td></tr>';
                     return;
                 }
 
                 bookings.forEach(b => {
-                    // Formatting dates for humans
                     const start = new Date(b.startDate).toLocaleDateString();
                     const end = new Date(b.endDate).toLocaleDateString();
+                    
+                    // Safety check: if car was deleted from DB
+                    const carInfo = b.car ? `${b.car.make} ${b.car.model}` : '<span style="color:red;">Car Unavailable</span>';
 
                     list.innerHTML += `
                         <tr>
-                            <td>${b.car.make} ${b.car.model}</td>
-                            <td>${start} to ${end}</td>
+                            <td>${carInfo}</td>
+                            <td>${start} - ${end}</td>
                             <td>$${b.totalPrice}</td>
-                            <td>${b.status}</td>
+                            <td><span class="status-badge" style="color: ${b.status === 'Confirmed' ? '#16a34a' : '#d97706'}">${b.status}</span></td>
                         </tr>
                     `;
                 });
             } catch (err) {
-                console.error(err);
-                document.getElementById('bookingList').innerHTML = '<tr><td colspan="4">Error loading bookings.</td></tr>';
+                document.getElementById('bookingList').innerHTML = '<tr><td colspan="4">Error loading data.</td></tr>';
             }
         }
 
         getMyBookings();
     </script>
 </body>
-
 </html>
