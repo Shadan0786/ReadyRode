@@ -2,48 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Confirm Booking | ReadyRoad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Booking | ReadyRide</title>
     <style>
+        /* CSS Matched with Premium Theme */
+        :root {
+            --navy: #111827;
+            --amber: #fbbf24;
+            --white: #ffffff;
+            --gray: #f3f4f6;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
-        body { background: linear-gradient(135deg, #eef2ff, #f8fafc); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-top: 50px; }
-        h2 { margin-bottom: 20px; color: #1f2937; }
-        #carSummary { background: white; padding: 20px; border-radius: 10px; width: 100%; max-width: 420px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; text-align: center; }
-        #bookingForm { background: white; padding: 25px; border-radius: 10px; width: 100%; max-width: 420px; box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
-        label { font-weight: 600; font-size: 14px; color: #374151; display: block; margin-top: 10px; }
-        input, select { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #d1d5db; }
-        #price { margin-top: 15px; padding: 12px; background: #eff6ff; color: #1e40af; border-radius: 6px; font-weight: bold; text-align: center; }
-        button { width: 100%; margin-top: 20px; padding: 12px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #1e40af; }
+        
+        body { 
+            background-color: var(--gray); 
+            color: var(--navy); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+        }
+
+        /* Simple Header */
+        header {
+            width: 100%;
+            background: var(--navy);
+            padding: 20px 8%;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header strong { color: var(--amber); font-size: 24px; letter-spacing: 1px; }
+
+        h2 { margin-bottom: 25px; font-weight: 800; text-transform: uppercase; }
+
+        /* Summary & Form Container */
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 900px;
+            width: 95%;
+            margin-bottom: 50px;
+        }
+
+        #carSummary { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        #bookingForm { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+        }
+
+        label { font-weight: 700; font-size: 13px; color: #4b5563; display: block; margin-top: 15px; text-transform: uppercase; }
+        
+        input, select { 
+            width: 100%; 
+            padding: 12px; 
+            margin-top: 8px; 
+            border-radius: 8px; 
+            border: 1px solid #d1d5db; 
+            font-size: 15px;
+            outline: none;
+        }
+        input:focus { border-color: var(--navy); box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.1); }
+
+        #price { 
+            margin-top: 25px; 
+            padding: 15px; 
+            background: #fffbeb; 
+            color: #92400e; 
+            border: 1px dashed var(--amber);
+            border-radius: 8px; 
+            font-weight: 800; 
+            text-align: center; 
+            font-size: 18px;
+        }
+
+        button { 
+            width: 100%; 
+            margin-top: 25px; 
+            padding: 15px; 
+            background: var(--navy); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+        }
+        button:hover { background: #1f2937; transform: translateY(-2px); }
+
+        @media (max-width: 768px) {
+            .booking-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
+    <header>
+        <strong onclick="window.location.href='index.html'" style="cursor:pointer;">ReadyRide</strong>
+    </header>
+
     <h2>Confirm Your Booking</h2>
 
-    <div id="carSummary">Loading car details...</div>
+    <div class="booking-container">
+        <div id="carSummary">
+            <p>Loading premium vehicle details...</p>
+        </div>
 
-    <form id="bookingForm">
-        <label>Start Date</label>
-        <input type="date" id="startDate" required>
+        <form id="bookingForm">
+            <label>Pickup Location</label>
+            <select id="pickupLocation">
+                <option value="City Airport">City Airport (Terminal 1)</option>
+                <option value="Downtown Station">Downtown Main Station</option>
+                <option value="Main Mall Office">ReadyRide Mall Office</option>
+            </select>
 
-        <label>End Date</label>
-        <input type="date" id="endDate" required>
+            <label>Start Date</label>
+            <input type="date" id="startDate" required>
 
-        <label>Pickup Location</label>
-        <select id="pickupLocation">
-            <option value="City Airport">City Airport</option>
-            <option value="Downtown Station">Downtown Station</option>
-            <option value="Main Mall Office">Main Mall Office</option>
-        </select>
+            <label>End Date</label>
+            <input type="date" id="endDate" required>
 
-        <div id="price">Total Price: $0</div>
+            <div id="price">Total Price: $0</div>
 
-        <button type="submit">Confirm Booking</button>
-    </form>
+            <button type="submit" id="confirmBtn">Confirm My Ride</button>
+            <p style="font-size: 11px; text-align: center; margin-top: 15px; color: #6b7280;">
+                By clicking confirm, you agree to our 24h cancellation policy.
+            </p>
+        </form>
+    </div>
 
     <script>
         const carId = new URLSearchParams(window.location.search).get('carId');
         let pricePerDay = 0;
+
+        // Set minimum date to today so users can't book in the past
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('startDate').setAttribute('min', today);
+        document.getElementById('endDate').setAttribute('min', today);
 
         // Load car details
         async function loadCar() {
@@ -52,9 +160,10 @@
                 const car = await res.json();
                 pricePerDay = car.pricePerDay;
                 document.getElementById('carSummary').innerHTML = `
-                    <img src="${car.image}" style="width:100%; border-radius:8px; margin-bottom:10px;">
-                    <h3>${car.make} ${car.model}</h3>
-                    <p style="color:#2563eb; font-weight:bold;">$${car.pricePerDay} / day</p>
+                    <img src="${car.image}" style="width:100%; border-radius:10px; margin-bottom:15px; object-fit: cover; height: 200px;">
+                    <h3 style="font-size: 24px;">${car.make} ${car.model}</h3>
+                    <p style="color: #6b7280; margin: 10px 0;">Category: ${car.category || 'Luxury'}</p>
+                    <div style="font-size: 22px; color: var(--navy); font-weight: 800;">$${car.pricePerDay} <span style="font-size: 14px; font-weight: normal;">/ day</span></div>
                 `;
             } catch (err) {
                 document.getElementById('carSummary').innerText = "Error loading car.";
@@ -63,14 +172,20 @@
 
         // Calculate price dynamically
         function calculatePrice() {
-            const start = new Date(document.getElementById('startDate').value);
-            const end = new Date(document.getElementById('endDate').value);
+            const startStr = document.getElementById('startDate').value;
+            const endStr = document.getElementById('endDate').value;
 
-            if (start && end && end > start) {
-                const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-                document.getElementById('price').innerText = `Total Price: $${days * pricePerDay} (${days} days)`;
-            } else {
-                document.getElementById('price').innerText = `Total Price: $0`;
+            if (startStr && endStr) {
+                const start = new Date(startStr);
+                const end = new Date(endStr);
+
+                if (end > start) {
+                    const diffTime = Math.abs(end - start);
+                    const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    document.getElementById('price').innerHTML = `Total: $${days * pricePerDay} <br><small>(${days} Days Selected)</small>`;
+                } else {
+                    document.getElementById('price').innerText = `End date must be after start date`;
+                }
             }
         }
 
@@ -81,7 +196,15 @@
         document.getElementById('bookingForm').addEventListener('submit', async e => {
             e.preventDefault();
             const token = localStorage.getItem('token');
-            if (!token) return alert("Please login first");
+            if (!token) {
+                alert("Please login first to confirm your booking.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.innerText = "Processing...";
 
             const bookingData = {
                 car: carId,
@@ -90,18 +213,26 @@
                 pickupLocation: document.getElementById('pickupLocation').value
             };
 
-            const res = await fetch('http://localhost:5000/api/bookings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
-                body: JSON.stringify(bookingData)
-            });
+            try {
+                const res = await fetch('http://localhost:5000/api/bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                    body: JSON.stringify(bookingData)
+                });
 
-            const result = await res.json();
-            if (res.ok) {
-                alert("Booking successful!");
-                window.location.href = "profile.html";
-            } else {
-                alert(result.msg || result.error || "Booking failed");
+                const result = await res.json();
+                if (res.ok) {
+                    alert("Reservation Confirmed! Enjoy your ride.");
+                    window.location.href = "profile.html";
+                } else {
+                    alert(result.msg || "Booking failed. Dates might be unavailable.");
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerText = "Confirm My Ride";
+                }
+            } catch (err) {
+                alert("Server error. Please try again.");
+                confirmBtn.disabled = false;
+                confirmBtn.innerText = "Confirm My Ride";
             }
         });
 

@@ -1,146 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>ReadyRoad - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ReadyRide</title>
     <style>
-        /* ===== RESET ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, sans-serif;
+        /* CSS Matched with Premium Navy & Amber Theme */
+        :root {
+            --navy: #111827;
+            --amber: #fbbf24;
+            --white: #ffffff;
+            --gray: #f3f4f6;
         }
 
-        /* ===== PAGE LAYOUT ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: var(--navy); /* Dark background like the hero section */
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
-        /* ===== CONTAINER ===== */
-        .container {
-            background: #ffffff;
-            padding: 30px 35px;
+        /* Login Card */
+        .login-card {
+            background: var(--white);
+            padding: 40px;
             width: 100%;
-            max-width: 420px;
-            border-radius: 10px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
-        /* ===== HEADINGS ===== */
-        h1 {
-            text-align: center;
-            color: #1e3c72;
+        .login-card h1 {
+            color: var(--navy);
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .login-card h1 span {
+            color: var(--amber); /* Brand Gold */
+        }
+
+        .login-card p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Form Styling */
+        form div { margin-bottom: 20px; text-align: left; }
+        
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #4b5563;
             margin-bottom: 5px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        hr {
-            margin-bottom: 20px;
-            border: none;
-            height: 1px;
-            background: #ddd;
-        }
-
-        /* ===== FORM ===== */
-        form {
-            width: 100%;
-        }
-
-        /* ===== INPUTS ===== */
-        form div {
-            margin-bottom: 12px;
+            display: block;
         }
 
         input {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 12px 15px;
             border: 1px solid #d1d5db;
-            font-size: 14px;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 5px rgba(37, 99, 235, 0.4);
-        }
-
-        /* ===== BUTTON ===== */
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #1e3c72;
-            color: #ffffff;
-            border: none;
             border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
+            font-size: 15px;
+            outline: none;
             transition: 0.3s;
         }
 
+        input:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            padding: 14px;
+            background: var(--navy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
         button:hover {
-            background: #2a5298;
-            transform: translateY(-1px);
+            background: #1f2937;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* ===== TEXT & LINKS ===== */
-        p {
-            margin-top: 15px;
+        /* Links */
+        .footer-text {
+            margin-top: 25px;
             font-size: 14px;
-            text-align: center;
-            color: #333;
+            color: #374151;
         }
 
-        a {
-            color: #2563eb;
+        .footer-text a {
+            color: var(--navy);
+            font-weight: bold;
             text-decoration: none;
-            font-weight: 500;
+            border-bottom: 2px solid var(--amber);
         }
 
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 480px) {
-            .container {
-                padding: 25px;
-            }
+        .footer-text a:hover {
+            color: #000;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-
-        <h1>ReadyRoad Car Rental</h1>
-        <h2>Login to Your Account</h2>
-        <hr>
+    <div class="login-card">
+        <h1>Ready<span>Ride</span></h1>
+        <p>Login to book your next journey</p>
 
         <form id="loginForm">
             <div>
-                <input type="email" name="email" placeholder="Email" required>
-            </div><br>
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="name@company.com" required>
+            </div>
             <div>
-                <input type="password" name="password" placeholder="Password" required>
-            </div><br>
+                <label>Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
 
-            <button type="submit">Login</button>
+            <button type="submit">Sign In</button>
         </form>
 
-        <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+        <div class="footer-text">
+            Don't have an account? <a href="signup.html">Create Account</a>
+        </div>
     </div>
 
     <script>
@@ -165,22 +165,19 @@
                     localStorage.setItem('userName', result.user.name);
                     localStorage.setItem('role', result.user.role);
 
-                    alert("Welcome " + result.user.name);
-
-                    // FIXED REDIRECTION
+                    // Smooth redirection based on role
                     if (result.user.role === 'admin') {
                         window.location.href = 'admin.html';
                     } else {
                         window.location.href = 'index.html';
                     }
                 } else {
-                    alert(result.msg || "Login Failed");
+                    alert(result.msg || "Invalid Credentials");
                 }
             } catch (error) {
-                alert("Server connection error.");
+                alert("Server connection error. Please ensure backend is running.");
             }
         });
     </script>
 </body>
-
 </html>

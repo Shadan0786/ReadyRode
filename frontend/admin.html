@@ -1,179 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadyRoad Admin - Control Tower</title>
     <style>
-        /* CSS remains the same as your original provided code */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", sans-serif;
+        /* CSS updated to match index.html premium theme */
+        :root {
+            --navy: #111827;
+            --amber: #fbbf24;
+            --white: #ffffff;
+            --gray: #f3f4f6;
         }
 
-        body {
-            background-color: #f4f6f8;
-            color: #333;
-            padding: 20px;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+        
+        body { background-color: var(--gray); color: var(--navy); }
+
+        /* Navigation matched to index.html */
+        nav { 
+            display: flex; align-items: center; justify-content: space-between; 
+            background-color: var(--navy); padding: 15px 8%; color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #1f2937;
-            padding: 12px 20px;
-            color: #fff;
-            border-radius: 8px;
+        nav strong { font-size: 24px; color: var(--amber); }
+        nav div a { color: #d1d5db; text-decoration: none; margin-right: 20px; font-weight: 500; }
+        nav div a:hover { color: var(--amber); }
+
+        nav button { 
+            background-color: #ef4444; color: white; border: none; 
+            padding: 8px 18px; border-radius: 5px; cursor: pointer; font-weight: bold;
         }
 
-        nav a {
-            color: #9ca3af;
-            text-decoration: none;
-            margin-left: 15px;
+        /* Dashboard Layout */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        h1 { margin-bottom: 30px; font-size: 28px; text-transform: uppercase; letter-spacing: 1px; }
+
+        section { 
+            background-color: var(--white); padding: 30px; border-radius: 12px; 
+            margin-bottom: 30px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); 
         }
 
-        nav button {
-            background-color: #ef4444;
-            color: #fff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 5px;
-            cursor: pointer;
+        h3 { margin-bottom: 20px; font-size: 20px; border-left: 5px solid var(--amber); padding-left: 15px; }
+
+        /* Form Styling */
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        form input, form select { 
+            padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none;
+        }
+        form input:focus { border-color: var(--navy); }
+        form button { 
+            grid-column: span 2; background-color: var(--navy); color: white; 
+            padding: 15px; border: none; border-radius: 8px; font-weight: bold; 
+            cursor: pointer; transition: 0.3s;
+        }
+        form button:hover { background-color: #1f2937; }
+
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { background-color: #f9fafb; padding: 15px; text-align: left; font-size: 13px; color: #6b7280; text-transform: uppercase; }
+        td { padding: 15px; border-bottom: 1px solid #edf2f7; font-size: 15px; }
+        
+        .status-badge { 
+            background: #dcfce7; color: #166534; padding: 5px 10px; border-radius: 20px; 
+            font-size: 12px; font-weight: bold; 
         }
 
-        section {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        .remove-btn { 
+            background-color: transparent; border: 1px solid #ef4444; color: #ef4444; 
+            padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: 0.2s;
         }
+        .remove-btn:hover { background-color: #ef4444; color: white; }
 
-        form input,
-        form select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        form button {
-            background-color: #2563eb;
-            color: #fff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        td button {
-            background-color: #ef4444;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        @media (max-width: 768px) { form { grid-template-columns: 1fr; } form button { grid-column: span 1; } }
     </style>
 </head>
 
 <body>
     <nav>
-        <strong>ReadyRoad ADMIN</strong>
+        <strong>ReadyRide ADMIN</strong>
         <div>
-            <a href="index.html">Home</a>
+            <a href="index.html">View Site</a>
             <button onclick="logout()">Logout</button>
         </div>
     </nav>
 
-    <h1>Admin Dashboard</h1>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
 
-    <section>
-        <h3>+ Add New Vehicle to Fleet</h3>
-        <form id="addCarForm">
-            <input type="text" name="make" placeholder="Make (e.g., Tesla)" required>
-            <input type="text" name="model" placeholder="Model (e.g., Model 3)" required>
-            <input type="number" name="year" placeholder="Year" required>
-            <input type="number" name="pricePerDay" placeholder="Price Per Day ($)" required>
-            <input type="text" name="licensePlate" placeholder="License Plate" required>
-            <input type="text" name="image" placeholder="Car Image URL" required>
-            <select name="category">
-                <option value="Economy">Economy</option>
-                <option value="Luxury">Luxury</option>
-                <option value="SUV">SUV</option>
-            </select>
-            <button type="submit">Add Car to Fleet</button>
-        </form>
-    </section>
+        <section>
+            <h3>+ Add New Vehicle to Fleet</h3>
+            <form id="addCarForm">
+                <input type="text" name="make" placeholder="Make (e.g., Tesla)" required>
+                <input type="text" name="model" placeholder="Model (e.g., Model 3)" required>
+                <input type="number" name="year" placeholder="Year" required>
+                <input type="number" name="pricePerDay" placeholder="Price Per Day ($)" required>
+                <input type="text" name="licensePlate" placeholder="License Plate" required>
+                <input type="text" name="image" placeholder="Car Image URL" required>
+                <select name="category">
+                    <option value="Economy">Economy</option>
+                    <option value="Luxury">Luxury</option>
+                    <option value="SUV">SUV</option>
+                </select>
+                <button type="submit">Add Car to Fleet</button>
+            </form>
+        </section>
 
-    <section>
-        <h3>Current Fleet</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Car</th>
-                    <th>Price/Day</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="fleetTable"></tbody>
-        </table>
-    </section>
+        <section>
+            <h3>Current Fleet</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Price/Day</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="fleetTable"></tbody>
+            </table>
+        </section>
 
-    <section>
-        <h3>All Customer Bookings</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Car</th>
-                    <th>Dates</th>
-                    <th>Revenue</th>
-                </tr>
-            </thead>
-            <tbody id="allBookingsTable"></tbody>
-        </table>
-    </section>
+        <section>
+            <h3>All Customer Bookings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Car</th>
+                        <th>Dates</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+                <tbody id="allBookingsTable"></tbody>
+            </table>
+        </section>
+    </div>
 
     <script>
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
 
-        // Combined Security Check
         if (!token || role !== 'admin') {
             alert("Access Denied: Admins Only!");
             window.location.href = 'login.html';
         }
 
         async function loadFleet() {
-            const res = await fetch('http://localhost:5000/api/cars');
-            const cars = await res.json();
-            document.getElementById('fleetTable').innerHTML = cars.map(car => `
-                <tr>
-                    <td>${car.make} ${car.model}</td>
-                    <td>$${car.pricePerDay}</td>
-                    <td>${car.status}</td>
-                    <td><button onclick="deleteCar('${car._id}')">Remove</button></td>
-                </tr>
-            `).join('');
+            try {
+                const res = await fetch('http://localhost:5000/api/cars');
+                const cars = await res.json();
+                document.getElementById('fleetTable').innerHTML = cars.map(car => `
+                    <tr>
+                        <td><strong>${car.make}</strong> ${car.model}</td>
+                        <td>$${car.pricePerDay}</td>
+                        <td><button class="remove-btn" onclick="deleteCar('${car._id}')">Remove</button></td>
+                    </tr>
+                `).join('');
+            } catch (err) { console.error(err); }
         }
 
         async function loadAllBookings() {
@@ -191,26 +175,23 @@
                 }
 
                 tableBody.innerHTML = bookings.map(b => {
-                    // Safety Check: Agar user ya car database se delete ho chuka ho
                     const userName = b.user ? `${b.user.firstName} ${b.user.lastName}` : '<span style="color:red">Deleted User</span>';
                     const carName = b.car ? `${b.car.make} ${b.car.model}` : '<span style="color:red">Car Removed</span>';
                     const revenue = b.totalPrice ? `$${b.totalPrice}` : '$0';
-
                     const startDate = b.startDate ? new Date(b.startDate).toLocaleDateString() : 'N/A';
                     const endDate = b.endDate ? new Date(b.endDate).toLocaleDateString() : 'N/A';
 
                     return `
-                <tr>
-                    <td>${userName}</td>
-                    <td>${carName}</td>
-                    <td>${startDate} - ${endDate}</td>
-                    <td>${revenue}</td>
-                </tr>
-            `;
+                    <tr>
+                        <td>${userName}</td>
+                        <td>${carName}</td>
+                        <td>${startDate} - ${endDate}</td>
+                        <td><strong>${revenue}</strong></td>
+                    </tr>`;
                 }).join('');
             } catch (err) {
                 console.error("Error loading bookings:", err);
-                document.getElementById('allBookingsTable').innerHTML = '<tr><td colspan="4" style="color:red; text-align:center;">Failed to load bookings. Check Console.</td></tr>';
+                document.getElementById('allBookingsTable').innerHTML = '<tr><td colspan="4" style="color:red; text-align:center;">Failed to load.</td></tr>';
             }
         }
 
@@ -245,10 +226,8 @@
             window.location.href = 'login.html';
         }
 
-        // Initialization
         loadFleet();
         loadAllBookings();
     </script>
 </body>
-
 </html>

@@ -2,57 +2,157 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ReadyRoad - Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | ReadyRide</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Tahoma, sans-serif; }
-        body { min-height: 100vh; background: linear-gradient(135deg, #1e3c72, #2a5298); display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .container { background: #ffffff; padding: 30px 35px; width: 100%; max-width: 450px; border-radius: 10px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); }
-        h1 { text-align: center; color: #1e3c72; margin-bottom: 5px; font-size: 24px; }
-        h2 { text-align: center; color: #666; font-size: 16px; margin-bottom: 15px; }
-        hr { margin-bottom: 20px; border: none; height: 1px; background: #ddd; }
-        .form-group { margin-bottom: 15px; }
-        input { width: 100%; padding: 12px; font-size: 14px; border: 1px solid #ccc; border-radius: 6px; outline: none; transition: 0.3s; }
-        input:focus { border-color: #2a5298; box-shadow: 0 0 5px rgba(42, 82, 152, 0.4); }
-        button { width: 100%; padding: 12px; background: #1e3c72; color: #fff; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        button:hover { background: #2a5298; transform: translateY(-1px); }
-        .footer-text { text-align: center; margin-top: 20px; font-size: 14px; color: #444; }
-        a { color: #2477d6; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
+        /* CSS Matched with Premium Navy & Amber Theme */
+        :root {
+            --navy: #111827;
+            --amber: #fbbf24;
+            --white: #ffffff;
+            --gray: #f3f4f6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+
+        body {
+            min-height: 100vh;
+            background: var(--navy); /* Deep dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .signup-card {
+            background: var(--white);
+            padding: 40px;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .signup-card h1 {
+            color: var(--navy);
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .signup-card h1 span { color: var(--amber); }
+
+        .signup-card p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Form Grid Layout */
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
+        .full-width { grid-column: span 2; }
+
+        label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #4b5563;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+        }
+
+        button {
+            grid-column: span 2;
+            width: 100%;
+            padding: 14px;
+            background: var(--navy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #1f2937;
+            transform: translateY(-2px);
+        }
+
+        button:disabled { background: #9ca3af; cursor: not-allowed; }
+
+        .footer-text {
+            grid-column: span 2;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #374151;
+            text-align: center;
+        }
+
+        .footer-text a {
+            color: var(--navy);
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid var(--amber);
+        }
     </style>
 </head>
-<body>
 
-    <div class="container">
-        <h1>ReadyRoad Car Rental</h1>
-        <h2>Create Your Account</h2>
-        <hr>
+<body>
+    <div class="signup-card">
+        <h1>Ready<span>Ride</span></h1>
+        <p>Join us and start your premium journey</p>
 
         <form id="signupForm">
-            <div class="form-group">
-                <input type="text" name="firstName" placeholder="First Name" required>
+            <div>
+                <label>First Name</label>
+                <input type="text" name="firstName" placeholder="John" required>
             </div>
-            <div class="form-group">
-                <input type="text" name="lastName" placeholder="Last Name" required>
+            <div>
+                <label>Last Name</label>
+                <input type="text" name="lastName" placeholder="Doe" required>
             </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email Address" required>
+            <div class="full-width">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="john@example.com" required>
             </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password (min 8 characters)" minlength="8" required>
+            <div class="full-width">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Min. 8 characters" minlength="8" required>
             </div>
-            <div class="form-group">
-                <input type="text" name="phoneNumber" placeholder="Phone Number" required>
+            <div>
+                <label>Phone Number</label>
+                <input type="text" name="phoneNumber" placeholder="+91..." required>
             </div>
-            <div class="form-group">
-                <input type="text" name="driversLicense" placeholder="Driver's License Number" required>
+            <div>
+                <label>Driver's License</label>
+                <input type="text" name="driversLicense" placeholder="ABC-12345" required>
             </div>
 
-            <button type="submit" id="submitBtn">Register Now</button>
+            <button type="submit" id="submitBtn">Create Account</button>
+
+            <div class="footer-text">
+                Already have an account? <a href="login.html">Sign In</a>
+            </div>
         </form>
-
-        <div class="footer-text">
-            Already have an account? <a href="login.html">Login here</a>
-        </div>
     </div>
 
     <script>
@@ -62,14 +162,11 @@
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Disable button to prevent multiple clicks
             submitBtn.disabled = true;
-            submitBtn.innerText = "Processing...";
+            submitBtn.innerText = "Creating Account...";
 
             const formData = new FormData(signupForm);
             const userData = Object.fromEntries(formData);
-
-            console.log("Attempting to Register:", userData);
 
             try {
                 const response = await fetch('http://localhost:5000/api/auth/register', {
@@ -81,19 +178,18 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert("Account created successfully! Redirecting to login...");
+                    alert("Account created successfully! Let's get you logged in.");
                     window.location.href = 'login.html';
                 } else {
-                    alert("Registration Failed: " + (result.msg || result.error || "Unknown Error"));
+                    alert("Registration Failed: " + (result.msg || "Please check your details."));
                     submitBtn.disabled = false;
-                    submitBtn.innerText = "Register Now";
+                    submitBtn.innerText = "Create Account";
                 }
 
             } catch (error) {
-                console.error("Signup Error:", error);
-                alert("Cannot connect to server. Is the backend running on port 5000?");
+                alert("Server error. Is the backend running?");
                 submitBtn.disabled = false;
-                submitBtn.innerText = "Register Now";
+                submitBtn.innerText = "Create Account";
             }
         });
     </script>

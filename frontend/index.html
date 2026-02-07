@@ -3,20 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ReadyRoad - Your Ride Start here</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadyRoad - Premium Car Rental</title>
     <style>
         /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, sans-serif;
+            font-family: "Segoe UI", sans-serif;
         }
 
         body {
-            height: 100vh;
-            background-color: #f4f6f8;
+            background-color: #ffffff;
             color: #1f2937;
+            line-height: 1.6;
         }
 
         /* ===== NAVBAR ===== */
@@ -24,282 +25,337 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 30px;
+            padding: 20px 8%;
             background-color: #111827;
-            color: #ffffff;
-        }
-
-        nav .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        nav a {
-            color: #9ca3af;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: #ffffff;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         nav strong {
-            font-size: 22px;
-            color: #ffffff;
+            font-size: 24px;
+            color: #fbbf24;
+            cursor: pointer;
         }
 
-        /* Admin Button Styling */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
         #adminBtn {
-            background-color: #f59e0b;
-            /* Amber/Gold */
+            background: #fbbf24;
             color: #000;
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 8px 15px;
+            border-radius: 5px;
             font-weight: bold;
             display: none;
-            /* Hidden by default */
-        }
-
-        #adminBtn:hover {
-            background-color: #fbbf24;
         }
 
         #logoutBtn {
-            background-color: #ef4444;
+            background: #ef4444;
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 8px 15px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 500;
+            display: none;
         }
 
-        #logoutBtn:hover {
-            background-color: #dc2626;
-        }
-
-        /* ===== HERO ===== */
-        header {
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.7)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #2563eb, #1e3a8a);
             color: white;
+            padding: 0 20px;
         }
 
-        header h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
+        .hero h1 {
+            font-size: 48px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
         }
 
-        header p {
+        .hero p {
             font-size: 18px;
+            max-width: 600px;
+            margin-bottom: 30px;
             opacity: 0.9;
         }
 
-        /* ===== SECTION & GRID ===== */
+        
+
+        /* ===== OUR FLEET SECTION ===== */
         section {
-            padding: 50px 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 80px 8%;
         }
 
         section h2 {
-            margin-bottom: 30px;
-            font-size: 28px;
-            border-left: 5px solid #2563eb;
-            padding-left: 15px;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #111827;
+            position: relative;
         }
 
         #carList {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
 
-        /* ===== CAR CARD ===== */
         .car-card {
-            background-color: white;
-            border-radius: 15px;
+            background: #fff;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            border: 1px solid #f3f4f6;
         }
 
         .car-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
         }
 
         .car-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
-            background-color: #e5e7eb;
         }
 
         .car-content {
-            padding: 20px;
-            flex-grow: 1;
+            padding: 25px;
+        }
+
+        .car-category {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .car-content h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-        }
-
-        .car-info {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 12px;
+            font-size: 22px;
+            margin: 5px 0;
         }
 
         .car-price {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
-            color: #2563eb;
-            margin-bottom: 15px;
+            color: #111827;
+            margin: 15px 0;
         }
 
-        /* ===== RENT BUTTON ===== */
-        .car-card button {
+        .book-btn {
             width: 100%;
             padding: 12px;
-            background-color: #2563eb;
-            color: white;
+            background: #fbbf24;
+            color: #000;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.2s;
+            transition: 0.3s;
         }
 
-        .car-card button:hover {
-            background-color: #1e40af;
+        .book-btn:hover {
+            background: #f59e0b;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== INFO SECTIONS ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .info-item h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .features {
+            list-style: none;
+        }
+
+        .features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ===== FOOTER CALL TO ACTION ===== */
+        .cta-footer {
+            background: #111827;
+            color: white;
+            padding: 60px 8%;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cta-footer h2 {
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .yellow-btn {
+            background: #fbbf24;
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+        }
+
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 15px;
+            .hero h1 {
+                font-size: 32px;
             }
 
-            header h1 {
-                font-size: 32px;
+            .info-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <strong>ReadyRoad 🚗</strong>
 
+    <nav>
+        <strong>ReadyRide</strong>
         <div class="nav-links">
             <span id="userInfo">
-                <a href="login.html">Login</a> / <a href="signup.html">Register</a>
+                <a href="login.html">Login</a>
+                <a href="signup.html" style="margin-left: 15px;">Register</a>
             </span>
             <a href="admin.html" id="adminBtn">Admin Panel</a>
-
-            <button id="logoutBtn" style="display:none;">Logout</button>
+            <button id="logoutBtn">Logout</button>
         </div>
     </nav>
 
-    <header>
-        <h1>Drive the Dream, Rent the Best.</h1>
-        <p>Premium cars at your fingertips. No hidden fees. 24/7 Support.</p>
+    <header class="hero">
+        <h1>YOUR RIDE, READY WHEN YOU ARE</h1>
+        <p>Book a professional car in seconds. Transparent pricing, 24/7 availability, and local expertise.</p>
     </header>
 
-    <section>
-        <h2>Available Fleet</h2>
+    <section id="fleet">
+        <h2>Our Fleet</h2>
         <div id="carList">
-            <p>Scanning the garage for available cars...</p>
+            <p>Scanning the garage...</p>
         </div>
     </section>
 
+    <section style="background: #f9fafb;">
+        <div class="info-grid">
+            <div class="info-item">
+                <h3>Why ReadyRide?</h3>
+                <ul class="features">
+                    <li>💰 Fixed Pricing - No hidden fees</li>
+                    <li>🛡️ Verified Cars - Safety first</li>
+                    <li>⭐ Top Rated Service - 4.9/5 stars</li>
+                </ul>
+            </div>
+            <div class="info-item">
+                <h3>How It Works</h3>
+                <ul class="features">
+                    <li>📍 Set your route</li>
+                    <li>🚗 Pick your ride</li>
+                    <li>✨ Enjoy the journey</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-footer">
+        <h2>Ready to hit the road?</h2>
+        <a href="#fleet" class="yellow-btn">Book Your ReadyRide Now</a>
+        <p style="margin-top: 20px; font-size: 14px; opacity: 0.6;">© 2026 ReadyRoad Car Rentals. Privacy Policy | Terms
+            of Service</p>
+    </div>
+
     <script>
-        // --- 1. AUTH & ROLE CHECK ---
         const token = localStorage.getItem('token');
         const userName = localStorage.getItem('userName');
-        const role = localStorage.getItem('role'); // Check for 'admin' or 'user'
+        const role = localStorage.getItem('role');
 
         const userInfo = document.getElementById('userInfo');
         const logoutBtn = document.getElementById('logoutBtn');
         const adminBtn = document.getElementById('adminBtn');
 
-        // If user is logged in
+        // --- AUTH UI CHECK ---
         if (token) {
-            document.getElementById('userInfo').innerHTML = `
-        Hi, <strong>${userName}</strong> | <a href="profile.html">My Bookings</a>
-    `;
-            document.getElementById('logoutBtn').style.display = 'inline-block';
-
-            // Only show admin button if role matches
-            if (role === 'admin') {
-                document.getElementById('adminBtn').style.display = 'inline-block';
-            }
+            userInfo.innerHTML = `Hi, <strong>${userName}</strong> | <a href="profile.html">My Bookings</a>`;
+            logoutBtn.style.display = 'inline-block';
+            if (role === 'admin') adminBtn.style.display = 'inline-block';
         }
 
-        // --- 2. LOGOUT LOGIC ---
         logoutBtn.addEventListener('click', () => {
             localStorage.clear();
-            alert("Logged out successfully!");
             window.location.href = 'login.html';
         });
 
-        // --- 3. FETCH & DISPLAY CARS ---
+        // --- FETCH CARS ---
         async function fetchCars() {
             try {
                 const response = await fetch('http://localhost:5000/api/cars');
                 const cars = await response.json();
-
                 const carContainer = document.getElementById('carList');
-                carContainer.innerHTML = ''; // Clear loading text
-
-                if (!cars || cars.length === 0) {
-                    carContainer.innerHTML = '<p>Our fleet is currently out on the road. Check back soon!</p>';
-                    return;
-                }
+                carContainer.innerHTML = '';
 
                 cars.forEach(car => {
-                    // Use a placeholder if image is missing
-                    const carImg = car.image || 'https://via.placeholder.com/400x250?text=No+Image+Available';
-
                     carContainer.innerHTML += `
                         <div class="car-card">
-                            <img src="${carImg}" alt="${car.make}" class="car-image">
+                            <img src="${car.image}" class="car-image" alt="${car.make}">
                             <div class="car-content">
+                                <span class="car-category">${car.category || 'Luxury'}</span>
                                 <h3>${car.make} ${car.model}</h3>
-                                <div class="car-info">
-                                    Year: ${car.year} | ${car.fuelType || 'Petrol'} | ${car.transmission || 'Auto'}
-                                </div>
-                                <div class="car-price">$${car.pricePerDay} <small>/ day</small></div>
-                                <button onclick="bookCar('${car._id}')">Confirm Booking</button>
+                                <p style="color: #6b7280; font-size: 14px; margin-bottom: 10px;">
+                                    Premium performance, unmatched comfort. Starting at $${car.pricePerDay}
+                                </p>
+                                <div class="car-price">$${car.pricePerDay} <small style="font-size: 12px; color: #6b7280;">/ day</small></div>
+                                <button class="book-btn" onclick="bookCar('${car._id}')">Book Now</button>
                             </div>
                         </div>
                     `;
                 });
             } catch (error) {
-                console.error("Error fetching cars:", error);
-                document.getElementById('carList').innerHTML = '<p style="color:red;">Unable to load fleet. Please check if backend is running.</p>';
+                document.getElementById('carList').innerHTML = '<p>Failed to load cars.</p>';
             }
         }
 
-        // --- 4. NAVIGATION TO BOOKING ---
         function bookCar(carId) {
             if (!token) {
-                alert("Please login to book a car!");
+                alert("Please login to book!");
                 window.location.href = 'login.html';
             } else {
                 window.location.href = `booking.html?carId=${carId}`;
             }
         }
 
-        // Run on load
         fetchCars();
     </script>
 </body>
