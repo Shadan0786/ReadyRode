@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ReadyRoad - Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px 35px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        hr {
+            margin-bottom: 20px;
+            border: none;
+            height: 1px;
+            background: #ddd;
+        }
+
+        form div {
+            margin-bottom: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 5px rgba(42, 82, 152, 0.4);
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        legend {
+            padding: 0 6px;
+            font-size: 14px;
+            color: #2a5298;
+        }
+
+        label {
+            font-size: 13px;
+            color: #555;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #1e3c72;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #2a5298;
+            transform: translateY(-1px);
+        }
+
+        p {
+          position: relative;
+          top: 20px;
+          text-align: center;
+        }
+
+        a {
+            color: #2477d6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+
+        <h1>ReadyRoad Car Rental</h1>
+        <h2>Create Your Account</h2>
+        <hr>
+
+        <form id="signupForm">
+            <div>
+                <input type="text" name="firstName" placeholder="First Name" required>
+            </div><br>
+            <div>
+                <input type="text" name="lastName" placeholder="Last Name">
+            </div><br>
+            <div>
+                <input type="email" name="email" placeholder="Email" required>
+            </div><br>
+            <div>
+                <input type="password" name="password" placeholder="Password (min 8 characters)" required>
+            </div><br>
+            <div>
+                <input type="text" name="phoneNumber" placeholder="Phone Number" required>
+            </div><br>
+
+           
+            <br>
+            <button type="submit">Register Now</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+        
+    </div>
+
+    <script>
+        // 1. Grab the form element
+        const signupForm = document.getElementById('signupForm');
+
+        // 2. Listen for the submit event
+        signupForm.addEventListener('submit', async (e) => {
+            // STOP the page from refreshing (the most important line!)
+            e.preventDefault();
+
+            // 3. Extract data from the form
+            const formData = new FormData(signupForm);
+            const rawData = Object.fromEntries(formData);
+
+            // 4. Structure the data to match your Mongoose Schema
+            const userData = {
+                firstName: rawData.firstName,
+                lastName: rawData.lastName,
+                email: rawData.email,
+                password: rawData.password,
+                phoneNumber: rawData.phoneNumber,
+                
+            };
+
+            console.log("Sending data to backend:", userData);
+
+            try {
+                // 5. Send data to your Node.js server
+                const response = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("Account created successfully! Please login.");
+                    window.location.href = 'login.html';
+
+                } else {
+                    // Show error from backend (e.g., "User already exists")
+                    alert("Error: " + (result.msg || result.error || "Signup failed"));
+                }
+
+            } catch (error) {
+                console.error("Connection Error:", error);
+                alert("Could not connect to the backend server. Make sure it is running on port 5000.");
+            }
+        });
+    </script>
+</body>
+
+</html>
