@@ -2,12 +2,11 @@
 const token = localStorage.getItem('token');
 const userName = localStorage.getItem('userName');
 const role = localStorage.getItem('role');
-
 const userInfo = document.getElementById('userInfo');
 const logoutBtn = document.getElementById('logoutBtn');
 const adminBtn = document.getElementById('adminBtn');
 
-// --- AUTH UI CHECK ---
+
 if (token) {
     userInfo.innerHTML = `Hi, <strong>${userName}</strong> | <a href="profile.html">My Bookings</a>`;
     logoutBtn.style.display = 'inline-block';
@@ -19,7 +18,7 @@ logoutBtn.addEventListener('click', () => {
     window.location.href = 'login.html';
 });
 
-// --- FETCH CARS ---
+
 async function fetchCars() {
     try {
         const response = await fetch('http://localhost:5000/api/cars');

@@ -20,7 +20,7 @@ loginForm.addEventListener('submit', async (e) => {
             localStorage.setItem('userName', result.user.name);
             localStorage.setItem('role', result.user.role);
 
-            // Smooth redirection based on role
+
             if (result.user.role === 'admin') {
                 window.location.href = 'admin.html';
             } else {

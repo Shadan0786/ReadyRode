@@ -8,7 +8,7 @@ if (!token) {
     window.location.href = 'login.html';
 }
 
-// Setup Profile Header
+
 document.getElementById('userInitial').innerText = userName ? userName.charAt(0).toUpperCase() : 'U';
 document.getElementById('userFields').innerHTML = `
             <h3 style="font-size: 22px; margin-bottom: 5px;">${userName || 'Valued Client'}</h3>
@@ -47,7 +47,7 @@ async function getMyBookings() {
     }
 }
 
-// Cancellation Logic
+
 async function cancelBooking(bookingId) {
     if (confirm("Are you sure you want to cancel this booking?")) {
         try {
