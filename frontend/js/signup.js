@@ -1,4 +1,3 @@
-
 const signupForm = document.getElementById('signupForm');
 const submitBtn = document.getElementById('submitBtn');
 
